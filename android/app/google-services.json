@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "517392010995",
+    "project_id": "sumyre-6618f",
+    "storage_bucket": "sumyre-6618f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517392010995:android:f342043da3a45414d3f186",
+        "android_client_info": {
+          "package_name": "com.example.sumyre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517392010995-hk3mjcnoatv7n4gi8qqu4uu7easog0u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYcNZgungzcomCpbDRztfJydz4arnVVaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517392010995-hk3mjcnoatv7n4gi8qqu4uu7easog0u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

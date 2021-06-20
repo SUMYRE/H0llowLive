@@ -10,9 +10,8 @@ import 'Widgets/widgets.dart';
 
 void main() async {
 
-  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: '/',
         routes: {
-          '/': (fcontext) => ErrorScreen()
+          '/': (context) => ErrorScreen()
         },
         theme: ThemeData(
           brightness: Brightness.dark,
