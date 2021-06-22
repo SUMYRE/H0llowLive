@@ -8,6 +8,9 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late String _email, _password;
+  late String _errorCode, _errorField;
   
   Widget build(BuildContext context) {
 
@@ -26,7 +29,7 @@ class LoginPageState extends State<LoginPage> {
                 )
               )
             ),
-            SizedBox(height:20),
+            //SizedBox(height:20),
             
             Padding(
               padding: EdgeInsets.only(left:35),
@@ -41,7 +44,7 @@ class LoginPageState extends State<LoginPage> {
                   ),
                   child: AnimatedTextKit(
                     animatedTexts: [
-                      TypewriterAnimatedText("SUMYRe", speed: const Duration(milliseconds: 300))
+                      TypewriterAnimatedText("HOllowLive", speed: const Duration(milliseconds: 300))
                     ],
                   )
                 )
@@ -49,15 +52,62 @@ class LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height:5),
 
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left:35),
+                child: Container(
+                  child: Text(
+                  "Weclome Back, Login",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                )
+              )
+            ),
+
             Padding(
-              padding: EdgeInsets.only(left:35),
+              padding: EdgeInsets.fromLTRB(35, size.height*0.06, 35, 10),
               child: Container(
-                child: Text(
-                "Weclome Back, Login",
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [BoxShadow(
+                    color: Color(0xff171924),
+                    blurRadius: 20,
+                    offset: Offset(0,10)
+                  )]
+                ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    
+                  )
+                )
               )
             )
+            /*Container(
+              child: Form(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      validator: (email) {
+                        if(email!.isEmpty){
+                          return "please provide an email";
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Example: example@gmail.com",
+                        labelText: "EMAIL",
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal
+                        )
+                      ),
+                    )
+                  ],
+                )
+              )
+            )*/
           ],
         ),
       )
