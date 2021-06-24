@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,12 +47,12 @@ class MyApp extends StatelessWidget {
               ),
               bodyText1: const TextStyle(
                 color: Colors.white,
-                fontSize:24,
+                fontSize:28,
                 fontWeight: FontWeight.normal
               ),
               subtitle1: const TextStyle(
                 color: Colors.white,
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: FontWeight.normal
               )
             ),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firecloud;
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:provider/provider.dart';
+import 'package:sumyre/Widgets/loginButtons.dart';
 import '../Widgets/widgets.dart';
 import '../Models/models.dart';
 
@@ -16,6 +17,9 @@ class LoginPageState extends State<LoginPage> {
     final model = Provider.of<HomeModel>(context);
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
     Size size = MediaQuery.of(context).size;
+    String? email, password;
+
+    Widget loginButton = LoginButtonWidget(hasBorder: false, title: "login", email: email, password: password,);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -32,6 +36,24 @@ class LoginPageState extends State<LoginPage> {
                 yOffset: size.height /3.0,
                 color: Theme.of(context).backgroundColor
               )
+            ),
+
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 500),
+              curve: Curves.easeOutQuad,
+              top: keyboardOpen ? -size.height / 2.5: 0.0,
+              child:Padding(
+                padding: EdgeInsets.only(top: size.height/2.5, left: size.width/8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Weclome Back, Login",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
+                )
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(top: size.height/6),
@@ -50,52 +72,11 @@ class LoginPageState extends State<LoginPage> {
                         TypewriterAnimatedText("HOllowLive", speed: const Duration(milliseconds: 300))
                       ],
                     )
-                  )
+                  ),
                 ],
               )
             ),
-            /*Padding(
-              padding: EdgeInsets.only(left:35),
-              child: SizedBox(
-                width: double.infinity,
-                child: DefaultTextStyle(
-                  style: const TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                    fontFamily: "Montserrat"
-                  ),
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      TypewriterAnimatedText("HOllowLive", speed: const Duration(milliseconds: 300))
-                    ],
-                  )
-                )
-              ),
-            ),*/
-            /*Container(
-              height: 200,
-              color: Colors.white,
-            ),*/
-            /*Container(
-              height: size.height*0.34,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/pictures/background1.png"),
-                  fit: BoxFit.fill,
-                )
-              )
-            ),*/
 
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                child: Text(
-                  "Weclome Back, Login",
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              )
-            ),
             SizedBox(height:30),
 
             Padding(
@@ -122,7 +103,10 @@ class LoginPageState extends State<LoginPage> {
 
                     },
                   ),
-                  SizedBox(height: 20)
+                  SizedBox(height: 70),
+                  loginButton,
+                  SizedBox(height: 20,),
+                  LoginButtonWidget(hasBorder: true, title: "Signup", email: "e", password: "p",)
                 ],
               )
             ),
