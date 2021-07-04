@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class LoginButtonWidget extends StatelessWidget {
@@ -6,12 +8,14 @@ class LoginButtonWidget extends StatelessWidget {
   final bool hasBorder;
   String? email;
   String? password;
+  String? purpose;
 
   LoginButtonWidget({
     required this.hasBorder,
     required this.title,
     this.email,
-    this.password
+    this.password,
+    this.purpose
   });
 
   @override
@@ -29,8 +33,19 @@ class LoginButtonWidget extends StatelessWidget {
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: (){
-            tester();
+          onTap: () async {
+            switch(purpose) {
+              case "pushSignup": {
+                Navigator.pushReplacementNamed(context, '/signup');
+              }
+              break;
+              
+              case "pushLogin": {
+                Navigator.pushReplacementNamed(context, '/login');
+              }
+              break;
+            }
+
           },
           child: Container(
             height:60.0,
@@ -48,9 +63,5 @@ class LoginButtonWidget extends StatelessWidget {
         ),
       )
     );
-  }
-
-  void tester() {
-    print(email! + " " + password!);
   }
 }

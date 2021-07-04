@@ -5,6 +5,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sumyre/Models/models.dart';
+import 'package:sumyre/Screens/landing.dart';
 import '/Backend/backend.dart';
 import 'Widgets/widgets.dart';
 import 'Screens/screens.dart';
@@ -29,7 +30,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
-            '/': (context) => LoginPage()
+            '/': (context) => LandingPage(),
+            '/signup': (context) => SignupScreen(),
+            '/login': (context) => LoginPage()
           },
           theme: ThemeData(
             brightness: Brightness.dark,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:email_validator/email_validator.dart';
 
 class HomeModel extends ChangeNotifier {
 
@@ -15,12 +16,7 @@ class HomeModel extends ChangeNotifier {
   get isValid => _isValid;
   bool _isValid = false;
   void isValidEmail(String input) {
-    if (input == "example@gmail.com") {
-      _isValid = true;
-    }
-    else {
-      _isValid = false;
-    }
+    !EmailValidator.validate(input) ?_isValid = false : _isValid = true;
     notifyListeners();
   }
 }

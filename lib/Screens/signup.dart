@@ -1,25 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart' as firecloud;
-import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sumyre/Widgets/loginButtons.dart';
+import 'package:sumyre/Models/models.dart';
 import '../Widgets/widgets.dart';
-import '../Models/models.dart';
 
-class LoginPage extends StatefulWidget {
-  createState() => LoginPageState();
-}
-
-class LoginPageState extends State<LoginPage> {
-
+class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
-
     final model = Provider.of<HomeModel>(context);
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
     Size size = MediaQuery.of(context).size;
     String? email, password;
 
-    Widget loginButton = LoginButtonWidget(hasBorder: false, title: "login", email: email, password: password,);
+    Widget loginButton = LoginButtonWidget(hasBorder: false, title: "Signup", email: email, password: password,);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -106,7 +98,7 @@ class LoginPageState extends State<LoginPage> {
                   SizedBox(height: 70),
                   loginButton,
                   SizedBox(height: 20,),
-                  LoginButtonWidget(hasBorder: true, title: "Signup", email: "e", password: "p", purpose: "pushSignup",)
+                  LoginButtonWidget(hasBorder: true, title: "Login", email: "e", password: "p", purpose: "pushLogin")
                 ],
               )
             ),
@@ -157,9 +149,5 @@ class LoginPageState extends State<LoginPage> {
         ),
       )
     );
-  }
-
-  void pushSignup() {
-    Navigator.pushReplacementNamed(context, 'signup');
   }
 }
