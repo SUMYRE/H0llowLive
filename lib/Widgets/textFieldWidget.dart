@@ -15,7 +15,7 @@ class TextFieldWidget extends StatelessWidget {
     required this.obscureText,
     required this.onChanged,
     required this.prefixIconData,
-    required this.suffixIconData
+    this.suffixIconData
   });
 
   Widget build(BuildContext context) {

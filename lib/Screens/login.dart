@@ -7,7 +7,10 @@ import '../Widgets/widgets.dart';
 import '../Models/models.dart';
 
 class LoginPage extends StatefulWidget {
-  createState() => LoginPageState();
+  final ValueChanged<String>? onUserChangePass;
+
+  LoginPage({this.onUserChangePass});
+  LoginPageState createState() => LoginPageState();
 }
 
 class LoginPageState extends State<LoginPage> {
@@ -15,14 +18,15 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
 
     final model = Provider.of<HomeModel>(context);
+    //final textFieldModel = Provider.of<TextFieldModel>(context);
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
     Size size = MediaQuery.of(context).size;
-    String? email, password;
-
-    Widget loginButton = LoginButtonWidget(hasBorder: false, title: "login", email: email, password: password,);
+    String? _email, _password;
+    final textModel = Provider.of<TextFieldModel>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: true,
       body: Container(
         child:Stack(
@@ -32,7 +36,7 @@ class LoginPageState extends State<LoginPage> {
               curve: Curves.easeOutQuad,
               top: keyboardOpen ? -size.height / 3.7 :0.0,
               child: WaveWidget(
-                size: size,
+                size: size, 
                 yOffset: size.height /3.0,
                 color: Theme.of(context).backgroundColor
               )
@@ -91,6 +95,7 @@ class LoginPageState extends State<LoginPage> {
                     suffixIconData: model.isValid ? Icons.check : null,
                     onChanged: (value) {
                       model.isValidEmail(value);
+                      textModel.updateUserEm(value);
                     }
                   ),
                   SizedBox(height:10),
@@ -100,13 +105,13 @@ class LoginPageState extends State<LoginPage> {
                     prefixIconData: Icons.lock_outline,
                     suffixIconData: model.isVisible ? Icons.visibility : Icons.visibility_off,
                     onChanged: (value){
-
+                      textModel.updateUsePass(value);
                     },
-                  ),
+                  ), 
                   SizedBox(height: 70),
-                  loginButton,
+                  LoginButtonWidget(hasBorder: false, title: "login", purpose: "loginUser"),
                   SizedBox(height: 20,),
-                  LoginButtonWidget(hasBorder: true, title: "Signup", email: "e", password: "p", purpose: "pushSignup",)
+                  LoginButtonWidget(hasBorder: true, title: "Signup", purpose: "pushSignup")
                 ],
               )
             ),

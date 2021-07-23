@@ -22,7 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<User?>.value(value: AuthService().user, initialData: null)
+        StreamProvider<User?>.value(value: AuthService().user, initialData: null),
+        ChangeNotifierProvider<TextFieldModel>(create: (context) => TextFieldModel())
+        ///ChangeNotifierProvider(create: (context) => TextFieldModel())
       ],
       child: ChangeNotifierProvider(
         create: (context) => HomeModel(),

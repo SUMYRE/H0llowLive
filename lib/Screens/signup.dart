@@ -11,10 +11,9 @@ class SignupScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     String? email, password;
 
-    Widget loginButton = LoginButtonWidget(hasBorder: false, title: "Signup", email: email, password: password,);
-
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: true,
       body: Container(
         child:Stack(
@@ -83,22 +82,22 @@ class SignupScreen extends StatelessWidget {
                     suffixIconData: model.isValid ? Icons.check : null,
                     onChanged: (value) {
                       model.isValidEmail(value);
+                      email = value;
                     }
                   ),
                   SizedBox(height:10),
                   TextFieldWidget(
                     hintText: "Password",
-                    obscureText: model.isVisible ? false : true,
+                    obscureText: false,
                     prefixIconData: Icons.lock_outline,
-                    suffixIconData: model.isVisible ? Icons.visibility : Icons.visibility_off,
                     onChanged: (value){
-
+                      password = value;
                     },
                   ),
                   SizedBox(height: 70),
-                  loginButton,
+                  LoginButtonWidget(hasBorder: false, title: "Signup",),
                   SizedBox(height: 20,),
-                  LoginButtonWidget(hasBorder: true, title: "Login", email: "e", password: "p", purpose: "pushLogin")
+                  LoginButtonWidget(hasBorder: true, title: "Login", purpose: "pushLogin")
                 ],
               )
             ),
