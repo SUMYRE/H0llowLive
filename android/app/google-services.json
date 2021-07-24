@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:517392010995:android:f342043da3a45414d3f186",
+        "mobilesdk_app_id": "1:517392010995:android:e720be34c0c27ca4d3f186",
         "android_client_info": {
-          "package_name": "com.example.sumyre"
+          "package_name": "com.hollowlive.sumyre"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "517392010995-463tve6qf4lruma5paq7arcip4agb4uh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hollowlive.sumyre",
+            "certificate_hash": "030d15ddfec27bba2499f86d08966403cf20df0c"
+          }
+        },
         {
           "client_id": "517392010995-hk3mjcnoatv7n4gi8qqu4uu7easog0u5.apps.googleusercontent.com",
           "client_type": 3

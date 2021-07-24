@@ -1,7 +1,9 @@
 import 'dart:ffi';
 import 'package:provider/provider.dart';
 import '../Models/models.dart';
+import '../Backend/backend.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginButtonWidget extends StatefulWidget {
   final String title;
@@ -17,6 +19,7 @@ class LoginButtonWidget extends StatefulWidget {
 class LoginButtonWidgetState extends State<LoginButtonWidget> {
 
   String? uPass;
+  AuthService auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +50,53 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
                   Navigator.pushReplacementNamed(context, '/login');
                 }
                 break;
+                case "registerUser": {
+                  String userPass = textModel.userPass;
+                  String userEm = textModel.userEm;
+
+                  try{
+                    final _trimmedEmail= userEm.trim();
+                    final _trimmedPass = userPass.trim();
+                    print(_trimmedPass);
+                    print(_trimmedEmail);
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPass);
+                    auth.getUser.then(
+                      (user){
+                        if(user != null) {
+                          //Navigator.pushReplacementNamed(context, routeName)
+                          print("yay there is a user");
+                        }
+                      }
+                    );
+                  }
+                  catch(e){
+                    print("went wrong");
+                  }
+                } 
+                break;
                 case "loginUser": {
-                  print("Userpass: ${textModel.userPass}");
-                  print("UserEm: ${textModel.userEm}");
+                  String userPass = textModel.userPass;
+                  String userEm = textModel.userEm;
+                  //print("Userpass: ${textModel.userPass}");
+                  //print("UserEm: ${textModel.userEm}");
+                  try{
+                    final _trimmedEmail= userEm.trim();
+                    final _trimmedPass = userPass.trim();
+                    print(_trimmedEmail);
+                    print(_trimmedPass);
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPass);
+                    auth.getUser.then(
+                      (user){
+                        if(user != null) {
+                          //Navigator.pushReplacementNamed(context, routeName)
+                          print("yay there is a user");
+                        }
+                      }
+                    );
+                  }
+                  catch(e){
+                    print('there no user');
+                  }
                 }
                 break;
               }

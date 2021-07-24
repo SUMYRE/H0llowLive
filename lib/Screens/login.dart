@@ -21,7 +21,6 @@ class LoginPageState extends State<LoginPage> {
     //final textFieldModel = Provider.of<TextFieldModel>(context);
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
     Size size = MediaQuery.of(context).size;
-    String? _email, _password;
     final textModel = Provider.of<TextFieldModel>(context, listen: false);
 
     return Scaffold(

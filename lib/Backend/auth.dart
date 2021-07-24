@@ -8,7 +8,7 @@ class AuthService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<User> get getUser => Future.value(_auth.currentUser!);
+  Future<User?> get getUser => Future.value(_auth.currentUser!);
   Stream<User?> get user => _auth.authStateChanges();
 
   Future<void> updateUserData(User user) {

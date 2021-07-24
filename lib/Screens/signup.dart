@@ -1,13 +1,20 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sumyre/Models/models.dart';
 import '../Widgets/widgets.dart';
+import '../Models/models.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
+  final ValueChanged<String>? onUserChangePass;
+
+  SignupScreen({this.onUserChangePass});
+  SignupScreenState createState() => SignupScreenState();
+}
+class SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     final model = Provider.of<HomeModel>(context);
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
+    final textModel = Provider.of<TextFieldModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     String? email, password;
 
@@ -39,7 +46,7 @@ class SignupScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Weclome Back, Login",
+                      "Weclome to HollowLive",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
@@ -82,20 +89,21 @@ class SignupScreen extends StatelessWidget {
                     suffixIconData: model.isValid ? Icons.check : null,
                     onChanged: (value) {
                       model.isValidEmail(value);
-                      email = value;
+                      textModel.updateUserEm(value);
                     }
                   ),
                   SizedBox(height:10),
                   TextFieldWidget(
                     hintText: "Password",
-                    obscureText: false,
+                    obscureText: model.isVisible ? false : true,
                     prefixIconData: Icons.lock_outline,
+                    suffixIconData: model.isVisible ? Icons.visibility : Icons.visibility_off,
                     onChanged: (value){
-                      password = value;
+                      textModel.updateUsePass(value);
                     },
-                  ),
+                  ), 
                   SizedBox(height: 70),
-                  LoginButtonWidget(hasBorder: false, title: "Signup",),
+                  LoginButtonWidget(hasBorder: false, title: "Signup", purpose: "registerUser"),
                   SizedBox(height: 20,),
                   LoginButtonWidget(hasBorder: true, title: "Login", purpose: "pushLogin")
                 ],
