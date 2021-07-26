@@ -25,7 +25,12 @@ class SignupScreenState extends State<SignupScreen> {
       body: Container(
         child:Stack(
           children: [
-            /*AnimatedPositioned(
+            
+            Container(
+              height: size.height -200,
+              color: Colors.white
+            ),
+            AnimatedPositioned(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeOutQuad,
               top: keyboardOpen ? -size.height / 3.7 :0.0,
@@ -34,25 +39,10 @@ class SignupScreenState extends State<SignupScreen> {
                 yOffset: size.height /3.0,
                 color: Theme.of(context).backgroundColor
               )
-            ),*/
-
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.easeOutQuad,
-              top: keyboardOpen ? -size.height / 2.5: 0.0,
-              child:Padding(
-                padding: EdgeInsets.only(top: size.height/2.5, left: size.width/8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Weclome to HollowLive",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ],
-                )
-              ),
             ),
+
+            showText(),
+
             Padding(
               padding: EdgeInsets.only(top: size.height/6),
               child: Row(
@@ -155,6 +145,29 @@ class SignupScreenState extends State<SignupScreen> {
           ],
         ),
       )
+    );
+  }
+  Widget showText() {
+    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
+    Size size = MediaQuery.of(context).size;
+    bool childShow = keyboardOpen ? false : true;
+
+    return AnimatedCrossFade(
+      duration: const Duration(milliseconds: 150),
+      firstChild: Container(),
+      secondChild: Padding(
+        padding: EdgeInsets.only(top: size.height/2.4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Welcome to HOllowLive",
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ],
+        )
+      ),
+      crossFadeState: childShow ? CrossFadeState.showSecond : CrossFadeState.showFirst,
     );
   }
 }

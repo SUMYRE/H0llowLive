@@ -30,7 +30,12 @@ class LoginPageState extends State<LoginPage> {
       body: Container(
         child:Stack(
           children: [
-            /*AnimatedPositioned(
+            /*Container(
+              height: size.height - 200,
+              color: Colors.white
+            ),
+            
+            AnimatedPositioned(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeOutQuad,
               top: keyboardOpen ? -size.height / 3.7 :0.0,
@@ -41,23 +46,6 @@ class LoginPageState extends State<LoginPage> {
               )
             ),*/
 
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.easeOutQuad,
-              top: keyboardOpen ? -size.height / 2.5: 0.0,
-              child:Padding(
-                padding: EdgeInsets.only(top: size.height/2.5, left: size.width/8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Weclome Back, Login",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ],
-                )
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(top: size.height/6),
               child: Row(
@@ -76,6 +64,18 @@ class LoginPageState extends State<LoginPage> {
                       ],
                     )
                   ),
+                ],
+              )
+            ),
+
+            showText(),
+
+            Padding(
+              padding: EdgeInsets.only(top: size.height/2.8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  
                 ],
               )
             ),
@@ -166,4 +166,31 @@ class LoginPageState extends State<LoginPage> {
   void pushSignup() {
     Navigator.pushReplacementNamed(context, 'signup');
   }
+  Widget showText() {
+    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
+    Size size = MediaQuery.of(context).size;
+    bool childShow = keyboardOpen ? false : true;
+
+    return AnimatedCrossFade(
+      duration: const Duration(milliseconds: 150),
+      firstChild: Container(),
+      secondChild: Padding(
+        padding: EdgeInsets.only(top: size.height/2.4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Weclome Back, Gamer",
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ],
+        )
+      ),
+      crossFadeState: childShow ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+    );
+  }
+
+  /*Widget showErrorMsg() {
+    
+  }*/
 }

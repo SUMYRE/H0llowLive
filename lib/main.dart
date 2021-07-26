@@ -6,9 +6,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sumyre/Models/models.dart';
 import 'package:sumyre/Screens/landing.dart';
+import 'package:sumyre/Screens/main/dashboard.dart';
 import '/Backend/backend.dart';
 import 'Widgets/widgets.dart';
 import 'Screens/screens.dart';
+import 'Backend/backend.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
 
@@ -17,8 +20,13 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  @override
+class MyApp extends StatefulWidget {
+  createState() => MyAppClass();
+}
+class MyAppClass extends State<MyApp> {
+  
+  bool isUserlogged = false;
+
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -34,7 +42,8 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => LandingPage(),
             '/signup': (context) => SignupScreen(),
-            '/login': (context) => LoginPage()
+            '/login': (context) => LoginPage(),
+            '/mainDash': (context) => MainDash()
           },
           theme: ThemeData(
             brightness: Brightness.dark,

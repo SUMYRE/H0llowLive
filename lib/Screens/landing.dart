@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:sumyre/Widgets/widgets.dart';
+import '../Backend/backend.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
+  createState() => LandingPageState();
+}
+
+class LandingPageState extends State<LandingPage> {
+  
+  AuthService auth = AuthService();
+
+  void initState() {
+    super.initState();
+    print('init state');
+    try{
+      auth.getUser.then(
+        (user) {
+          if(user != null) {
+            Navigator.pushReplacementNamed(context, '/mainDash');
+          }
+        }
+      );
+    }
+    catch(e){
+
+    }
+  }
 
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

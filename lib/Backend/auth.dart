@@ -44,8 +44,11 @@ class AuthService {
     }
   }
 
-  void _signout() async {
+  void signout() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
+  }
+  void userSignOut() async {
+    _auth.signOut();
   }
 } 

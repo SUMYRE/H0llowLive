@@ -1,7 +1,8 @@
-import 'dart:ffi';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/models.dart';
 import '../Backend/backend.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -50,7 +51,14 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
                   Navigator.pushReplacementNamed(context, '/login');
                 }
                 break;
+                case "signOut": {
+                  auth.signout();
+                  Navigator.pushReplacementNamed(context, '/');
+                }
+                break;
                 case "registerUser": {
+
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
                   String userPass = textModel.userPass;
                   String userEm = textModel.userEm;
 
@@ -61,10 +69,11 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
                     print(_trimmedEmail);
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPass);
                     auth.getUser.then(
-                      (user){
+                      (user) async {
                         if(user != null) {
                           //Navigator.pushReplacementNamed(context, routeName)
                           print("yay there is a user");
+                          await prefs.setBool('isUserLogged', true);
                         }
                       }
                     );
@@ -75,27 +84,28 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
                 } 
                 break;
                 case "loginUser": {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
                   String userPass = textModel.userPass;
                   String userEm = textModel.userEm;
                   //print("Userpass: ${textModel.userPass}");
                   //print("UserEm: ${textModel.userEm}");
                   try{
+
                     final _trimmedEmail= userEm.trim();
                     final _trimmedPass = userPass.trim();
                     print(_trimmedEmail);
                     print(_trimmedPass);
                     await FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPass);
                     auth.getUser.then(
-                      (user){
+                      (user) async {
                         if(user != null) {
-                          //Navigator.pushReplacementNamed(context, routeName)
-                          print("yay there is a user");
+                          Navigator.pushReplacementNamed(context, '/mainDash');
                         }
                       }
                     );
                   }
-                  catch(e){
-                    print('there no user');
+                  on FirebaseAuthException catch (e) {
+                    print(e.code);
                   }
                 }
                 break;
@@ -119,5 +129,27 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
         );
       })
     );
+  }
+  // ignore: non_constant_identifier_names
+  String? ErrrorMsg(String eMsg) {
+    if(Platform.isAndroid) {
+      switch(eMsg) {
+        case "user-not-found": {
+          return "There is no user with this email";
+        }
+        case "wrong-password": {
+          return "Wrong password was used";
+        }
+        case "invalid-email": {
+          return "invalid email, use a real email";
+        }
+        case "email-already-in-use": {
+          return "There is already an account under this email";
+        }
+        case "weak-password": {
+          return "weak password, use a stronger one";
+        }
+      }
+    }
   }
 }
