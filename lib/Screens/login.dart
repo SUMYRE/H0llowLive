@@ -10,10 +10,19 @@ class LoginPage extends StatefulWidget {
   final ValueChanged<String>? onUserChangePass;
 
   LoginPage({this.onUserChangePass});
-  LoginPageState createState() => LoginPageState();
+  createState() => LoginPageState();
 }
 
 class LoginPageState extends State<LoginPage> {
+
+  void initState() {
+    super.initState();
+    final textModel = Provider.of<TextFieldModel>(context, listen: false);
+    final model = Provider.of<HomeModel>(context, listen: false);
+    textModel.updateErrorMsg('noE');
+    model.isValidEmail("heheh");
+    print('updated');
+  }
 
   Widget build(BuildContext context) {
 
@@ -22,6 +31,8 @@ class LoginPageState extends State<LoginPage> {
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
     Size size = MediaQuery.of(context).size;
     final textModel = Provider.of<TextFieldModel>(context, listen: false);
+
+
 
     return Scaffold(
       //backgroundColor: Colors.white,
@@ -107,7 +118,7 @@ class LoginPageState extends State<LoginPage> {
                       textModel.updateUsePass(value);
                     },
                   ), 
-                  SizedBox(height: 70),
+                  DisplayErrorMsg(),
                   LoginButtonWidget(hasBorder: false, title: "login", purpose: "loginUser"),
                   SizedBox(height: 20,),
                   LoginButtonWidget(hasBorder: true, title: "Signup", purpose: "pushSignup")
@@ -161,6 +172,34 @@ class LoginPageState extends State<LoginPage> {
         ),
       )
     );
+  }
+
+  // ignore: non_constant_identifier_names
+  Widget DisplayErrorMsg() {
+    final textModel = Provider.of<TextFieldModel>(context, listen: false);
+    
+    if(textModel.errorMsg != null) {
+      if(textModel.errorMsg == "noE"){
+        return SizedBox(height: 70);
+      }
+      else{
+        String emes = textModel.errorMsg;
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height:30),
+            Container(
+              child: Text(emes, style: TextStyle(color: Colors.redAccent,
+                  fontSize:16,
+                  fontWeight: FontWeight.normal)),
+            )
+          ],
+        );
+      }
+    }
+    else {
+      return SizedBox(height: 70);
+    }
   }
 
   void pushSignup() {

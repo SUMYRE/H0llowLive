@@ -21,6 +21,7 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
 
   String? uPass;
   AuthService auth = AuthService();
+  bool errorMsg = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +79,10 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
                       }
                     );
                   }
-                  catch(e){
-                    print("went wrong");
+                  on FirebaseAuthException catch (e) {
+                    String eCode = e.code;
+                    String? eMes = ErrorMsg(eCode);
+                    textModel.updateErrorMsg(eMes!);
                   }
                 } 
                 break;
@@ -105,7 +108,9 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
                     );
                   }
                   on FirebaseAuthException catch (e) {
-                    print(e.code);
+                    String eCode = e.code;
+                    String? eMes = ErrorMsg(eCode);
+                    textModel.updateErrorMsg(eMes!);
                   }
                 }
                 break;
@@ -130,8 +135,9 @@ class LoginButtonWidgetState extends State<LoginButtonWidget> {
       })
     );
   }
+
   // ignore: non_constant_identifier_names
-  String? ErrrorMsg(String eMsg) {
+  String? ErrorMsg(String eMsg) {
     if(Platform.isAndroid) {
       switch(eMsg) {
         case "user-not-found": {

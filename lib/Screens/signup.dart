@@ -11,6 +11,16 @@ class SignupScreen extends StatefulWidget {
   SignupScreenState createState() => SignupScreenState();
 }
 class SignupScreenState extends State<SignupScreen> {
+
+  void initState() {
+    super.initState();
+    final textModel = Provider.of<TextFieldModel>(context, listen: false);
+    final model = Provider.of<HomeModel>(context, listen: false);
+    textModel.updateErrorMsg('noE');
+    model.isValidEmail("heheh");
+    print('updated');
+  }
+
   Widget build(BuildContext context) {
     final model = Provider.of<HomeModel>(context);
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
@@ -26,7 +36,7 @@ class SignupScreenState extends State<SignupScreen> {
         child:Stack(
           children: [
             
-            Container(
+            /*Container(
               height: size.height -200,
               color: Colors.white
             ),
@@ -39,7 +49,7 @@ class SignupScreenState extends State<SignupScreen> {
                 yOffset: size.height /3.0,
                 color: Theme.of(context).backgroundColor
               )
-            ),
+            ),*/
 
             showText(),
 
@@ -92,7 +102,7 @@ class SignupScreenState extends State<SignupScreen> {
                       textModel.updateUsePass(value);
                     },
                   ), 
-                  SizedBox(height: 70),
+                  DisplayErrorMsg(),
                   LoginButtonWidget(hasBorder: false, title: "Signup", purpose: "registerUser"),
                   SizedBox(height: 20,),
                   LoginButtonWidget(hasBorder: true, title: "Login", purpose: "pushLogin")
@@ -147,6 +157,34 @@ class SignupScreenState extends State<SignupScreen> {
       )
     );
   }
+
+  Widget DisplayErrorMsg() {
+    final textModel = Provider.of<TextFieldModel>(context, listen: false);
+    
+    if(textModel.errorMsg != null) {
+      if(textModel.errorMsg == "noE"){
+        return SizedBox(height: 70);
+      }
+      else{
+        String emes = textModel.errorMsg;
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height:30),
+            Container(
+              child: Text(emes, style: TextStyle(color: Colors.redAccent,
+                  fontSize:16,
+                  fontWeight: FontWeight.normal)),
+            )
+          ],
+        );
+      }
+    }
+    else {
+      return SizedBox(height: 70);
+    }
+  }
+
   Widget showText() {
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom>0;
     Size size = MediaQuery.of(context).size;
